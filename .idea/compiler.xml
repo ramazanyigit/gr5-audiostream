@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="aa-service" />
+        <module name="recommandation-service" />
+        <module name="popularity-service" />
+        <module name="api-gateway" />
+        <module name="streaming-service" />
+        <module name="collection-service" />
+        <module name="playlist-service" />
+        <module name="eureka-server" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="aa-service" target="16" />
+      <module name="api-gateway" target="16" />
+      <module name="collection-service" target="16" />
+      <module name="eureka-server" target="16" />
+      <module name="playlist-service" target="16" />
+      <module name="popularity-service" target="16" />
+      <module name="recommandation-service" target="16" />
+      <module name="streaming-service" target="16" />
+    </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="aa-service" options="-parameters" />
+      <module name="api-gateway" options="-parameters" />
+      <module name="collection-service" options="-parameters" />
+      <module name="eureka-server" options="-parameters" />
+      <module name="playlist-service" options="-parameters" />
+      <module name="popularity-service" options="-parameters" />
+      <module name="recommandation-service" options="-parameters" />
+      <module name="streaming-service" options="-parameters" />
+    </option>
+  </component>
+</project>
