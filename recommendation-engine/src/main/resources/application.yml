@@ -1,23 +1,12 @@
 spring:
   application:
-    name: authentication-authorization
-  jpa:
-    database: postgresql
-    show-sql: true
-    generate-ddl: true
-    hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        jdbc:
-          lob:
-            non_contextual_creation: true
+    name: recommendation-engine
 
-  datasource:
-    url: jdbc:postgresql://localhost:5444/aa
-    username: gr5
-    password: gr5
-    driver-class-name: org.postgresql.Driver
+  data:
+    mongodb:
+      user: ${DB_USER:root}
+      password: ${DB_PASSWORD:example}
+      uri: ${DB_ADDR:mongodb://localhost:27017/db}
 
   main:
     banner-mode: off

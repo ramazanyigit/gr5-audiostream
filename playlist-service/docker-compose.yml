@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  audiostream-playlist-db:
+    container_name: audiostream-playlist-db
+    image: postgres
+    networks:
+      - audiostream-playlist
+    environment:
+      POSTGRES_DB: audiostream
+      POSTGRES_USER: playlist
+      POSTGRES_PASSWORD: playlist
+
+  playlist-api:
+    container_name: audiostream-playlist-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: audiostream-playlist-api:latest
+    networks:
+      - audiostream
+      - audiostream-playlist
+    environment:
+      DB_ADDR: jdbc:postgresql://audiostream-playlist-db:5432/audiostream
+      DB_USER: playlist
+      DB_PASSWORD: playlist
+      EUREKA_URI: http://eureka-server:8761/eureka
+    depends_on:
+      - audiostream-playlist-db
+
+networks:
+  audiostream:
+    external: true
+
+  audiostream-playlist:
+    name: audiostream-playlist
+    driver: bridge

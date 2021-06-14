@@ -7,7 +7,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="aa-service" />
-        <module name="recommandation-service" />
+        <module name="recommendation-engine" />
         <module name="popularity-service" />
         <module name="api-gateway" />
         <module name="streaming-service" />
@@ -24,6 +24,7 @@
       <module name="playlist-service" target="16" />
       <module name="popularity-service" target="16" />
       <module name="recommandation-service" target="16" />
+      <module name="recommendation-engine" target="16" />
       <module name="streaming-service" target="16" />
     </bytecodeTargetLevel>
   </component>
@@ -36,6 +37,7 @@
       <module name="playlist-service" options="-parameters" />
       <module name="popularity-service" options="-parameters" />
       <module name="recommandation-service" options="-parameters" />
+      <module name="recommendation-engine" options="-parameters" />
       <module name="streaming-service" options="-parameters" />
     </option>
   </component>

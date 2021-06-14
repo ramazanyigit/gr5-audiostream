@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  audiostream-streaming-db:
+    container_name: audiostream-streaming-db
+    image: postgres
+    networks:
+      - audiostream-streaming
+    environment:
+      POSTGRES_DB: audiostream
+      POSTGRES_USER: streaming
+      POSTGRES_PASSWORD: streaming
+
+  streaming-api:
+    container_name: audiostream-streaming-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: audiostream-streaming-api:latest
+    networks:
+      - audiostream
+      - audiostream-streaming
+    environment:
+      DB_ADDR: jdbc:postgresql://audiostream-streaming-db:5432/audiostream
+      DB_USER: streaming
+      DB_PASSWORD: streaming
+      EUREKA_URI: http://eureka-server:8761/eureka
+    depends_on:
+      - audiostream-streaming-db
+
+networks:
+  audiostream:
+    external: true
+
+  audiostream-streaming:
+    name: audiostream-streaming
+    driver: bridge

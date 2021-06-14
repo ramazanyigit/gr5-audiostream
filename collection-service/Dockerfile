@@ -1,0 +1,16 @@
+FROM openjdk:16-jdk-alpine as build
+WORKDIR /workspace/app
+
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+COPY src src
+
+RUN ./mvnw clean install package -DskipTests
+
+FROM openjdk:16-jdk-alpine
+VOLUME /tmp
+ARG DEPENDENCY=/workspace/app/target
+COPY --from=build ${DEPENDENCY}/* /app/
+
+ENTRYPOINT [ "sh", "-c", "java $JAVA_OPTS -Djava.security.egd=file:/dev/./urandom -jar /app/collection-service.jar" ]

@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  audiostream-popularity-db:
+    container_name: audiostream-popularity-db
+    image: postgres
+    networks:
+      - audiostream-popularity
+    environment:
+      POSTGRES_DB: audiostream
+      POSTGRES_USER: popularity
+      POSTGRES_PASSWORD: popularity
+
+  popularity-api:
+    container_name: audiostream-popularity-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: audiostream-popularity-api:latest
+    networks:
+      - audiostream
+      - audiostream-popularity
+    environment:
+      DB_ADDR: jdbc:postgresql://audiostream-popularity-db:5432/audiostream
+      DB_USER: popularity
+      DB_PASSWORD: popularity
+      EUREKA_URI: http://eureka-server:8761/eureka
+    depends_on:
+      - audiostream-popularity-db
+
+networks:
+  audiostream:
+    external: true
+
+  audiostream-popularity:
+    name: audiostream-popularity
+    driver: bridge

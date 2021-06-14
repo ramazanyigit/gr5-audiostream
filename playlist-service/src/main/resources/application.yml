@@ -1,6 +1,6 @@
 spring:
   application:
-    name: authentication-authorization
+    name: playlist-api
   jpa:
     database: postgresql
     show-sql: true
@@ -14,9 +14,9 @@ spring:
             non_contextual_creation: true
 
   datasource:
-    url: jdbc:postgresql://localhost:5444/aa
-    username: gr5
-    password: gr5
+    url: ${DB_ADDR:jdbc:postgresql://localhost:5444/aa}
+    username: ${DB_USER:gr5}
+    password: ${DB_PASSWORD:gr5}
     driver-class-name: org.postgresql.Driver
 
   main:

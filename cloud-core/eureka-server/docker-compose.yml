@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  eureka-server:
+    container_name: audiostream-eureka-server
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: audiostream-eureka-server:latest
+    networks:
+      - audiostream
+    ports:
+      - 8761:8761
+
+networks:
+  audiostream:
+    external: true

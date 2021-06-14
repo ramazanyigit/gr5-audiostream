@@ -1,0 +1,19 @@
+
+û
+neureka-server/src/main/java/tr/ege/edu/microservices/gr5/audiostream/eurekaserver/EurekaServerApplication.java,4\c\4cdba0f816c0b637f888d0f75538774daf03968b
+ò
+hapi-gateway/src/main/java/tr/ege/edu/microservices/gr5/audiostream/apigateway/ApiGatewayApplication.java,c\b\cba6c4ffe442bccd4d92a5c7975499c7e6be415f
+è
+_aa-service/src/main/java/tr/ege/edu/microservices/gr5/audiostream/aaservice/TestController.java,7\f\7fa5e4560ba31c5466503432590ffc78c96892ac
+ï
+eaa-service/src/main/java/tr/ege/edu/microservices/gr5/audiostream/aaservice/AaServiceApplication.java,6\5\657a43de73df36354df62207871e62bb8d465865
+E
+eureka-server/pom.xml,b\3\b39ae52d769ea03b699b5602439afd875433c8a7
+H
+eureka-server/Dockerfile,c\2\c23e45bb07363b2bfed88dc0975147c2a8cedd09
+F
+api-gateway/Dockerfile,9\5\9548e2ce3bdfe112d8c757987e1beebc1ecab5ed
+P
+ eureka-server/docker-compose.yml,3\f\3fbb80243e4dca112145f67a300d856b9b144ea0
+K
+keycloak/docker-compose.yml,d\8\d845449beca0c7e74d87ffc71dc4b06fe1c4fdac

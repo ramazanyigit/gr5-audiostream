@@ -1,0 +1,37 @@
+version: '3'
+
+services:
+  audiostream-collection-db:
+    container_name: audiostream-collection-db
+    image: postgres
+    networks:
+      - audiostream-collection
+    environment:
+      POSTGRES_DB: audiostream
+      POSTGRES_USER: collection
+      POSTGRES_PASSWORD: collection
+
+  collection-api:
+    container_name: audiostream-collection-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: audiostream-collection-api:latest
+    networks:
+      - audiostream
+      - audiostream-collection
+    environment:
+      DB_ADDR: jdbc:postgresql://audiostream-collection-db:5432/audiostream
+      DB_USER: collection
+      DB_PASSWORD: collection
+      EUREKA_URI: http://eureka-server:8761/eureka
+    depends_on:
+      - audiostream-collection-db
+
+networks:
+  audiostream:
+    external: true
+
+  audiostream-collection:
+    name: audiostream-collection
+    driver: bridge

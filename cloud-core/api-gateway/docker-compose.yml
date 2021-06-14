@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  api-gateway:
+    container_name: audiostream-api-gateway
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: audiostream-api-gateway:latest
+    networks:
+      - audiostream
+    environment:
+      EUREKA_URI: http://eureka-server:8761/eureka
+    ports:
+      - 8080:8080
+
+networks:
+  audiostream:
+    external: true

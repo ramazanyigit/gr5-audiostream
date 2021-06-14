@@ -1,0 +1,54 @@
+spring:
+  application:
+    name: api-gateway-service
+  cloud:
+    gateway:
+      routes:
+        - id: authentication-authorization
+          uri: lb://authentication-authorization
+          predicates:
+            - Path=/api/aa/**
+          filters:
+            - RewritePath=/api/aa(?<segment>/?.*), $\{segment}
+        - id: collection-api
+          uri: lb://collection-api
+          predicates:
+            - Path=/api/collection/**
+          filters:
+            - RewritePath=/api/collection(?<segment>/?.*), $\{segment}
+        - id: playlist-api
+          uri: lb://playlist-api
+          predicates:
+            - Path=/api/playlist/**
+          filters:
+            - RewritePath=/api/playlist(?<segment>/?.*), $\{segment}
+        - id: popularity-api
+          uri: lb://popularity-api
+          predicates:
+            - Path=/api/popularity/**
+          filters:
+            - RewritePath=/api/popularity(?<segment>/?.*), $\{segment}
+
+#        - id: recommendation-api
+#            uri: lb://recommendation-api
+#            predicates:
+#              - Path=/api/popularity/**
+#            filters:
+#              - RewritePath=/api/popularity(?<segment>/?.*), $\{segment}
+
+server:
+  port: 8080
+
+eureka:
+  instance:
+    hostname: ${spring.application.name}
+    instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
+    prefer-ip-address: true
+    leaseRenewalIntervalInSeconds: 10
+    leaseExpirationDurationInSeconds: 30
+    metadata-map:
+      startup: ${random.int}
+
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_URI:http://localhost:8761/eureka}
