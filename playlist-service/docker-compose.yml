@@ -25,6 +25,7 @@ services:
       DB_USER: playlist
       DB_PASSWORD: playlist
       EUREKA_URI: http://eureka-server:8761/eureka
+      KAFKA_URI: kafka:29092
     depends_on:
       - audiostream-playlist-db
 

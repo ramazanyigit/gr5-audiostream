@@ -19,6 +19,18 @@ spring:
     password: ${DB_PASSWORD:gr5}
     driver-class-name: org.postgresql.Driver
 
+  kafka:
+    consumer:
+      bootstrap-servers: ${KAFKA_URI:localhost:9092}
+      group-id: playlist-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+    producer:
+      bootstrap-servers: ${KAFKA_URI:localhost:9092}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+
   main:
     banner-mode: off
 
