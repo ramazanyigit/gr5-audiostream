@@ -6,7 +6,7 @@ COPY .mvn .mvn
 COPY pom.xml .
 COPY src src
 
-RUN ./mvnw clean install package -DskipTests
+RUN mvn clean install package -DskipTests
 
 FROM openjdk:16-jdk-alpine
 VOLUME /tmp
