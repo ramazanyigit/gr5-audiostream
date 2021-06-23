@@ -18,15 +18,15 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="aa-service" target="16" />
-      <module name="api-gateway" target="16" />
-      <module name="collection-service" target="16" />
-      <module name="eureka-server" target="16" />
-      <module name="playlist-service" target="16" />
+      <module name="aa-service" target="1.6" />
+      <module name="api-gateway" target="1.6" />
+      <module name="collection-service" target="1.6" />
+      <module name="eureka-server" target="1.6" />
+      <module name="playlist-service" target="1.6" />
       <module name="popularity-service" target="16" />
       <module name="recommandation-service" target="16" />
-      <module name="recommendation-engine" target="16" />
-      <module name="streaming-service" target="16" />
+      <module name="recommendation-engine" target="1.6" />
+      <module name="streaming-service" target="1.6" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
