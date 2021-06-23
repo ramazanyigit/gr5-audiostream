@@ -1,8 +1,6 @@
 
 •
 eaa-service/src/main/java/tr/ege/edu/microservices/gr5/audiostream/aaservice/AaServiceApplication.java,6\5\657a43de73df36354df62207871e62bb8d465865
-X
-(recommendation-engine/docker-compose.yml,1\1\1154b349db5909230f7ca676c7a03c115206291d
 S
 #playlist-service/docker-compose.yml,b\4\b41d3266cb71dbd50a546fca0389a24acf72fd49
 ¦
@@ -31,3 +29,14 @@ U
 %collection-service/docker-compose.yml,8\5\8517c4dc19763f190ce840b6d2fb74223dfaaf9d
 H
 playlist-service/pom.xml,5\5\55b7560d0f71e347035246ef3f79970c301c3e84
+Y
+)popularity-service/popularity-service.iml,b\3\b30c2e950f60ba370b07ed295826823063f6f84e
+J
+popularity-service/pom.xml,5\2\52025fe07e612babbe4171a41d8271cbcd9d3360
+U
+%popularity-service/docker-compose.yml,f\9\f923d6ad1c921fbfeb3f113a61a528056f1c436c
+N
+cloud-core/api-gateway/pom.xml,b\6\b69e983bba0effc106752d9293359f8b685dac14
+:
+
+.gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302

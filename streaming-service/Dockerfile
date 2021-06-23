@@ -4,9 +4,11 @@ WORKDIR /workspace/app
 COPY mvnw .
 COPY .mvn .mvn
 COPY pom.xml .
-COPY src src
 
-RUN mvn clean install package -DskipTests
+RUN mvn verify clean --fail-never
+
+COPY src src
+RUN mvn package -DskipTests
 
 FROM openjdk:16-jdk-alpine
 VOLUME /tmp

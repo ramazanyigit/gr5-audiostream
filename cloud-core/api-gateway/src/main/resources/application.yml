@@ -28,13 +28,12 @@ spring:
             - Path=/api/popularity/**
           filters:
             - RewritePath=/api/popularity(?<segment>/?.*), $\{segment}
-
-#        - id: recommendation-api
-#            uri: lb://recommendation-api
-#            predicates:
-#              - Path=/api/popularity/**
-#            filters:
-#              - RewritePath=/api/popularity(?<segment>/?.*), $\{segment}
+        - id: recommendation-engine
+            uri: lb://recommendation-engine
+            predicates:
+              - Path=/api/recommendation/**
+            filters:
+              - RewritePath=/api/recommendation(?<segment>/?.*), $\{segment}
 
 server:
   port: 8080
