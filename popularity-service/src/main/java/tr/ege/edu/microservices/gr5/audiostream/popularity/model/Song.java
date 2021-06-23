@@ -11,12 +11,6 @@ import java.util.UUID;
 @Data
 public class Song {
     @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name="UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
     @Column(name="artist")
@@ -27,7 +21,6 @@ public class Song {
 
     @Column(name="genre")
     private UUID genre;
-
 
 
 }
