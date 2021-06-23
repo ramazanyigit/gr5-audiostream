@@ -10,7 +10,7 @@ services:
       - 22181:2181
     networks:
       - audiostream
-  
+
   kafka:
     image: confluentinc/cp-kafka:latest
     networks:

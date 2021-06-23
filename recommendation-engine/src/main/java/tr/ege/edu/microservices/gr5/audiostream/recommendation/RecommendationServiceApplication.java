@@ -1,13 +1,13 @@
-package tr.ege.edu.microservices.gr5.audiostream.recommandation;
+package tr.ege.edu.microservices.gr5.audiostream.recommendation;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class RecommandationServiceApplication {
+public class RecommendationServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(RecommandationServiceApplication.class, args);
+		SpringApplication.run(RecommendationServiceApplication.class, args);
 	}
 
 }
