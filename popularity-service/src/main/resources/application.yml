@@ -14,9 +14,9 @@ spring:
             non_contextual_creation: true
 
   datasource:
-    url: ${DB_ADDR:jdbc:postgresql://localhost:5444/aa}
-    username: ${DB_USER:gr5}
-    password: ${DB_PASSWORD:gr5}
+    url: ${DB_ADDR:jdbc:postgresql://localhost:5432/popularityservice}
+    username: ${DB_USER:postgres}
+    password: ${DB_PASSWORD:1234}
     driver-class-name: org.postgresql.Driver
 
   main:
