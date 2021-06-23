@@ -1,16 +1,18 @@
 package tr.ege.edu.microservices.gr5.audiostream.popularity.model;
 
+
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.Date;
 import java.util.UUID;
 
-@Table(name="t_user")
+@Table(name="t_song_record")
 @Entity
 @Data
-public class User {
+public class SongDailyRecord {
 
     @Id
     @GeneratedValue(generator = "UUID")
@@ -21,11 +23,18 @@ public class User {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name="country_code")
-    private String countryCode;
+    @Column(name="report_date")
+    private Date reportDate;
 
-    @OneToMany
+    @Column
+    private UUID userId;
+
+    @ManyToOne
     @JoinColumn
-    private Set<UserSongChart> userSongChart;
+    private Song song;
+
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
+    @Column(name="daily_repeat_count")
+    private Long dailyRepeatCount;
 
 }

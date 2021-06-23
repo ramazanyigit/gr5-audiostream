@@ -1,17 +1,17 @@
 package tr.ege.edu.microservices.gr5.audiostream.popularity.model;
 
-
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
+import java.util.Date;
 import java.util.UUID;
 
-@Table(name="t_song_popular_chart")
+@Table(name="t_global_chart")
 @Entity
 @Data
-public class SongPopularityChart {
-
+public class GlobalChart {
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(
@@ -21,13 +21,15 @@ public class SongPopularityChart {
     @Column(name = "id", updatable = false, nullable = false)
     private UUID id;
 
+    @DateTimeFormat(pattern = "dd.MM.yyyy")
     @Column(name="report_date")
-    private UUID reportDate;
+    private Date reportDate;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinColumn(nullable = false)
-    private Song song;
+    @Column(name="song")
+    private UUID songId;
 
-    @Column(name = "popularity_ratio")
-    private Double popularityRatio;
+    @Column(name="repeat_count")
+    private Long repeatCount;
+
+
 }

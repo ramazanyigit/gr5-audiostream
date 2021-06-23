@@ -27,6 +27,4 @@ public class UserSongChart {
     @Column(name = "repeat_count")
     private Integer userRepeatCount;
 
-
-
 }
