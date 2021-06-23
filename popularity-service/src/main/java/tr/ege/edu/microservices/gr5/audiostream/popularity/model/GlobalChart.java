@@ -25,8 +25,9 @@ public class GlobalChart {
     @Column(name="report_date")
     private Date reportDate;
 
-    @Column(name="song")
-    private UUID songId;
+    @ManyToOne
+    @JoinColumn
+    private Song song;
 
     @Column(name="repeat_count")
     private Long repeatCount;

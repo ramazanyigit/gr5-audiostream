@@ -4,8 +4,8 @@ package tr.ege.edu.microservices.gr5.audiostream.popularity.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
-import tr.ege.edu.microservices.gr5.audiostream.popularity.model.GlobalChart;
-import tr.ege.edu.microservices.gr5.audiostream.popularity.model.SongDailyRecord;
+import tr.ege.edu.microservices.gr5.audiostream.popularity.dto.GlobalChartDTO;
+import tr.ege.edu.microservices.gr5.audiostream.popularity.model.*;
 import tr.ege.edu.microservices.gr5.audiostream.popularity.repository.*;
 
 import java.text.ParseException;
@@ -20,6 +20,7 @@ public class PopularityService {
 
 
 
+
     @Autowired
     public PopularityService(SongDailyRecordRepository songDailyRecordRepository, SongRepository songRepository,
                              GlobalChartRepository globalChartRepository){
@@ -27,11 +28,10 @@ public class PopularityService {
         this.songRepository = songRepository;
         this.globalChartRepository=globalChartRepository;
 
+
     }
 
     public void fillGlobalChart() throws ParseException {
-        List<GlobalChart> globalCharts=globalChartRepository.findAll();
-        Set<GlobalChart> newglobalChart=new HashSet<>();
         List<SongDailyRecord> songDailyRecords=
                 songDailyRecordRepository.getByReportDate(new SimpleDateFormat("yyyy-MM-dd").parse(new Date().toString()));
         for (SongDailyRecord dailyRecord:
@@ -40,12 +40,43 @@ public class PopularityService {
             if(temp!=null){
                 temp.setRepeatCount(temp.getRepeatCount()+dailyRecord.getDailyRepeatCount());
             }else{
-                GlobalChart newGlobalChart=new GlobalChart()
+                GlobalChart newGlobalChart=new GlobalChart();
+                newGlobalChart.setRepeatCount(dailyRecord.getDailyRepeatCount());
+                newGlobalChart.setSong(dailyRecord.getSong());
+                newGlobalChart.setReportDate(new SimpleDateFormat("yyyy-MM-dd").parse(new Date().toString()));
+                globalChartRepository.save(newGlobalChart);
             }
-
         }
-
     }
+
+
+    public List<GlobalChartDTO> getGlobalTopTenList(){
+        List<GlobalChart> globalChart=globalChartRepository.getGlobalTopTen();
+        //Collection-service, get SongName
+        return null;
+    }
+
+    public List<GlobalChartDTO> getGlobalTopHundredList(){
+        List<GlobalChart> globalChart=globalChartRepository.getGlobalTopHundred();
+        //Collection-service, get SongName
+        return null;
+    }
+
+    public List<Song> getGenreTopTen(UUID genreId){
+        List<GlobalChart> globalChartByGenre=globalChartRepository.getGenreTopTen(genreId);
+        List<Song> genreTopSongs=new ArrayList<>();
+        for (GlobalChart topSong:
+             globalChartByGenre ) {
+            genreTopSongs.add(topSong.getSong());
+        }
+        return genreTopSongs;
+    }
+
+
+
+
+
+
 
 
 }
