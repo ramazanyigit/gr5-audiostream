@@ -40,3 +40,5 @@ N
 :
 
 .gitignore,a\5\a5cc2925ca8258af241be7e5b0381edf30266302
+[
++cloud-core/eureka-server/docker-compose.yml,a\f\af6f2c8697158d5f64f96db2051a8ad2fb805bcf
