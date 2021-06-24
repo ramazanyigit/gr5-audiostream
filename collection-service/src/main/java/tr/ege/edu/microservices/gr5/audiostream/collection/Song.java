@@ -7,41 +7,36 @@ import java.util.UUID;
 
 @Entity
 public class Song {
-    //might be its own classes
-    private String artist;
-    private String albumName;
-    private int releaseYear;
+    private String name;
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     private UUID id;
+    private UUID albumId;
 
-    public Song(String artist, String albumName, int releaseYear) {
-        this.artist = artist;
-        this.albumName = albumName;
-        this.releaseYear = releaseYear;
+    public Song(String name, UUID album) {
+        this.name = name;
+        this.albumId = album;
     }
 
-    public void setArtist(String artist) {
-        this.artist = artist;
+    public String getName() {
+        return name;
     }
 
-    public void setAlbumName(String albumName) {
-        this.albumName = albumName;
+    public UUID getId() {
+        return id;
     }
 
-    public void setReleaseYear(int releaseYear) {
-        this.releaseYear = releaseYear;
+    public UUID getAlbumId() {
+        return albumId;
     }
 
-    public String getArtist() {
-        return artist;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getAlbumName() {
-        return albumName;
+    public void setAlbumId(UUID albumId) {
+        this.albumId = albumId;
     }
 
-    public int getReleaseYear() {
-        return releaseYear;
-    }
+
 }

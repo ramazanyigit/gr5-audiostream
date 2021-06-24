@@ -13,11 +13,6 @@ public class SongController
     //SongService songService;
     //su asamada yok
 
-    @GetMapping("/artist/{artistID}")
-    private void getSongsByArtist(@PathVariable("artistID") UUID artistId) {
-        //artist idsine sahip olanlari dondur
-    }
-
     @GetMapping("/song/{songID}")
     private void getSong(@PathVariable("songID") UUID songId)
     {
@@ -25,7 +20,7 @@ public class SongController
     }
 
     @PostMapping("/search")
-    private void saveBook(@RequestBody searchQuery query)
+    private void searchSongs(@RequestBody searchQuery query)
     {
         //query.getQuery();
         //isimle arama yap
