@@ -57,3 +57,22 @@ public class KafkaConsumer {
     }
 }
 ```
+
+### Example Feign Client
+```java
+import org.springframework.cloud.openfeign.FeignClient;
+import org.springframework.web.bind.annotation.GetMapping;
+
+@FeignClient("service-name")
+public interface CollectionFeignProxy {
+    @GetMapping("/api-url")
+    String testAPI();
+}
+```
+
+Service Names for FeignClient:
+- collection-api
+- playlist-api
+- popularity-api
+- recommendation-engine
+- streaming-api
