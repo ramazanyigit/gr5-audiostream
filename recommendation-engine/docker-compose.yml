@@ -24,7 +24,9 @@ services:
       DB_ADDR: mongodb://audiostream-recommendation-db:27017/audiostream
       DB_USER: root
       DB_PASSWORD: example
+      KAFKA_URI: kafka:29092
       EUREKA_URI: http://eureka-server:8761/eureka
+      KEYCLOAK_URI: http://keycloak:8080
     depends_on:
       - audiostream-recommendation-db
 

@@ -24,7 +24,9 @@ services:
       DB_ADDR: jdbc:postgresql://audiostream-popularity-db:5432/audiostream
       DB_USER: popularity
       DB_PASSWORD: popularity
+      KAFKA_URI: kafka:29092
       EUREKA_URI: http://eureka-server:8761/eureka
+      KEYCLOAK_URI: http://keycloak:8080
     depends_on:
       - audiostream-popularity-db
 
