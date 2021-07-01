@@ -1,4 +1,4 @@
-package tr.ege.edu.microservices.gr5.audiostream.recommendation.Entity;
+package tr.ege.edu.microservices.gr5.audiostream.recommendation.entity;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;

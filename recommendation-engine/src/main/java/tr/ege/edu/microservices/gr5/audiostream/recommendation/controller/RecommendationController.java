@@ -1,4 +1,4 @@
-package tr.ege.edu.microservices.gr5.audiostream.recommendation.Controller;
+package tr.ege.edu.microservices.gr5.audiostream.recommendation.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
