@@ -22,6 +22,27 @@ spring:
   main:
     banner-mode: off
 
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8763/auth/realms/audiostream
+          jwk-set-uri: ${KEYCLOAK_URI:http://localhost:8763}/auth/realms/audiostream/protocol/openid-connect/certs
+
+  kafka:
+    consumer:
+      bootstrap-servers: ${KAFKA_URI:localhost:9092}
+      group-id: streaming-group
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: *
+    producer:
+      bootstrap-servers: ${KAFKA_URI:localhost:9092}
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+
 server:
   port: 0
 
@@ -29,7 +50,7 @@ eureka:
   instance:
     hostname: ${spring.application.name}
     instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
-    prefer-ip-address: true
+#    prefer-ip-address: true
     leaseRenewalIntervalInSeconds: 10
     leaseExpirationDurationInSeconds: 30
     metadata-map:

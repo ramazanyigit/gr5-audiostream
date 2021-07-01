@@ -24,7 +24,9 @@ services:
       DB_ADDR: jdbc:postgresql://audiostream-streaming-db:5432/audiostream
       DB_USER: streaming
       DB_PASSWORD: streaming
+      KAFKA_URI: kafka:29092
       EUREKA_URI: http://eureka-server:8761/eureka
+      KEYCLOAK_URI: http://keycloak:8080
     depends_on:
       - audiostream-streaming-db
 

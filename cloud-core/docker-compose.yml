@@ -37,8 +37,14 @@ services:
       - audiostream
     environment:
       EUREKA_URI: http://eureka-server:8761/eureka
+      KEYCLOAK_URI: http://keycloak:8080
+      KEYCLOAK_EXTERNAL_URI: http://localhost:8763
+      KEYCLOAK_CLIENT_ID: audiostream-service
+      KEYCLOAK_CLIENT_SECRET: 41a97135-9549-47d7-9a8a-5684fb442504
     ports:
       - 8080:8080
+    depends_on:
+      - keycloak
 
   eureka-server:
     container_name: audiostream-eureka-server
@@ -76,6 +82,7 @@ services:
       DB_PASSWORD: keycloak
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: password
+      KEYCLOAK_FRONTEND_URL: http://localhost:8763/auth
     ports:
       - 8763:8080
     depends_on:

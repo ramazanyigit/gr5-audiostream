@@ -1,15 +1,28 @@
 spring:
   application:
     name: api-gateway-service
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            token-uri: ${KEYCLOAK_URI:http://localhost:8763}/auth/realms/audiostream/protocol/openid-connect/token
+            authorization-uri: ${KEYCLOAK_EXTERNAL_URI:http://localhost:8763}/auth/realms/audiostream/protocol/openid-connect/auth
+            userinfo-uri: ${KEYCLOAK_URI:http://localhost:8763}/auth/realms/audiostream/protocol/openid-connect/userinfo
+#            issuer-uri: ${KEYCLOAK_URI:http://localhost:8763}/auth/realms/audiostream
+            user-name-attribute: preferred_username
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: ${KEYCLOAK_CLIENT_ID:audiostream-service}
+            client-secret: ${KEYCLOAK_CLIENT_SECRET:41a97135-9549-47d7-9a8a-5684fb442504}
+            authorization-grant-type: authorization_code
+            redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
   cloud:
     gateway:
+      default-filters:
+        - TokenRelay
       routes:
-        - id: authentication-authorization
-          uri: lb://authentication-authorization
-          predicates:
-            - Path=/api/aa/**
-          filters:
-            - RewritePath=/api/aa(?<segment>/?.*), $\{segment}
         - id: collection-api
           uri: lb://collection-api
           predicates:
@@ -28,12 +41,19 @@ spring:
             - Path=/api/popularity/**
           filters:
             - RewritePath=/api/popularity(?<segment>/?.*), $\{segment}
+        - id: streaming-api
+          uri: lb://streaming-api
+          predicates:
+            - Path=/api/streaming/**
+          filters:
+            - RewritePath=/api/streaming(?<segment>/?.*), $\{segment}
+            - RemoveRequestHeader=Cookie
         - id: recommendation-engine
-            uri: lb://recommendation-engine
-            predicates:
-              - Path=/api/recommendation/**
-            filters:
-              - RewritePath=/api/recommendation(?<segment>/?.*), $\{segment}
+          uri: lb://recommendation-engine
+          predicates:
+            - Path=/api/recommendation/**
+          filters:
+            - RewritePath=/api/recommendation(?<segment>/?.*), $\{segment}
 
 server:
   port: 8080
@@ -42,9 +62,9 @@ eureka:
   instance:
     hostname: ${spring.application.name}
     instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
-    prefer-ip-address: true
+#    prefer-ip-address: true
     leaseRenewalIntervalInSeconds: 10
-    leaseExpirationDurationInSeconds: 30
+    leaseExpirationDurationInSeconds: 10
     metadata-map:
       startup: ${random.int}
 
