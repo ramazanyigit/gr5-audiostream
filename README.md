@@ -1,5 +1,27 @@
 # Audiostream Microservices Project
 
+### Service API URI's
+- collection-service: http://localhost:8080/api/collection/
+- playlist-service: http://localhost:8080/api/playlist/
+- popularity-service: http://localhost:8080/api/popularity/
+- recommendation-engine: http://localhost:8080/api/recommendation/
+- streaming-service: http://localhost:8080/api/streaming/
+
+**Note:** When using front-end services the api gateway connected to http://localhost:3000/api with reverse proxy.
+
+### Initial Credentials
+- Keycloak Master Admin: http://localhost:8763
+
+    admin/password
+
+
+- Application: http://localhost:8080
+    
+    admin/admin
+
+    user/user
+
+
 
 ### Example Kafka Configuration
 ```yaml
