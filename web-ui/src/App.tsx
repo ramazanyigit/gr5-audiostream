@@ -15,15 +15,22 @@ function App() {
       onEvent={(event, error) => {
         console.log(event, keycloak.authenticated, keycloak.token);
         if (keycloak.authenticated) {
-          axios
-            .get("/api/streaming/ping", {
-              headers: {
-                Authorization: "Bearer " + keycloak.token,
-              },
-            })
-            .then(({ data }) => {
-              console.log(data);
-            });
+          // axios
+          //   .post(
+          //     "/api/streaming/play",
+          //     {
+          //       songId: "d6867156-3f13-4eba-a0b7-9ddd8e7f6f52",
+          //       playOffset: 0,
+          //     },
+          //     {
+          //       headers: {
+          //         Authorization: "Bearer " + keycloak.token,
+          //       },
+          //     }
+          //   )
+          //   .then(({ data }) => {
+          //     console.log(data);
+          //   });
         }
       }}
     >
