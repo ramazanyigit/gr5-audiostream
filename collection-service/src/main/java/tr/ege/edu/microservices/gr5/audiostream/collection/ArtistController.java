@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import tr.ege.edu.microservices.gr5.audiostream.collection.model.SearchQuery;
 
 import java.util.UUID;
 
@@ -17,7 +18,7 @@ public class ArtistController {
     }
 
     @PostMapping("/artist/search")
-    private void searchArtists(@RequestBody searchQuery query)
+    private void searchArtists(@RequestBody SearchQuery query)
     {
         //query.getQuery();
         //isimle arama yap

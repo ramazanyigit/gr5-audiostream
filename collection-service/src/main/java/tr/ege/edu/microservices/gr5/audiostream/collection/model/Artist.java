@@ -1,4 +1,4 @@
-package tr.ege.edu.microservices.gr5.audiostream.collection;
+package tr.ege.edu.microservices.gr5.audiostream.collection.model;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
