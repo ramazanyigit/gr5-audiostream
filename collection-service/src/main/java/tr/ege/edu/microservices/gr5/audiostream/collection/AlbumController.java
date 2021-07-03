@@ -1,6 +1,7 @@
 package tr.ege.edu.microservices.gr5.audiostream.collection;
 
 import org.springframework.web.bind.annotation.*;
+import tr.ege.edu.microservices.gr5.audiostream.collection.model.SearchQuery;
 
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ public class AlbumController {
     }
 
     @PostMapping("/album/search")
-    private void searchAlbums(@RequestBody searchQuery query)
+    private void searchAlbums(@RequestBody SearchQuery query)
     {
         //query.getQuery();
         //isimle arama yap
