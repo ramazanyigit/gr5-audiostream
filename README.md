@@ -118,7 +118,7 @@ public class KafkaConsumer {
 ```
 
 Message Structure:
-```json
+```json5
 {
   "type": "START", // can be "START" or "STOP"
   "payload": {
