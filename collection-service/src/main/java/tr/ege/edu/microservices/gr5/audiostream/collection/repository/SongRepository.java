@@ -10,7 +10,7 @@ import java.util.UUID;
 
 @Repository
 public interface SongRepository extends JpaRepository<Song, UUID> {
-    List<Song> getAllByAlbumId(UUID albumId);
+    List<SongDTO> getAllByAlbumId(UUID albumId);
 
     List<SongDTO> getAll();
 

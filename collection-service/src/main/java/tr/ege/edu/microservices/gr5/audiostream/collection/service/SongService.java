@@ -19,7 +19,7 @@ public class SongService {
         return repository.getAll();
     }
 
-    public List<Song> getAllByAlbumId(UUID albumId) {
+    public List<SongDTO> getAllByAlbumId(UUID albumId) {
         return repository.getAllByAlbumId(albumId);
     }
 

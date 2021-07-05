@@ -2,7 +2,6 @@ package tr.ege.edu.microservices.gr5.audiostream.collection.controller;
 
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import tr.ege.edu.microservices.gr5.audiostream.collection.model.SearchQuery;
 import tr.ege.edu.microservices.gr5.audiostream.collection.model.Song;
 import tr.ege.edu.microservices.gr5.audiostream.collection.model.SongDTO;
 import tr.ege.edu.microservices.gr5.audiostream.collection.service.SongService;
@@ -19,7 +18,12 @@ public class SongController {
     private final SongService service;
 
     @GetMapping
-    public List<SongDTO> getAll(@RequestParam(required = false) Optional<String> name) {
+    public List<SongDTO> getAll(@RequestParam(required = false) Optional<String> name,
+                                @RequestParam Optional<UUID> albumId) {
+        if (albumId.isPresent()) {
+            return service.getAllByAlbumId(albumId.get());
+        }
+
         if (name.isEmpty() || name.get().isBlank()) {
             return service.getAll();
         }
@@ -28,7 +32,7 @@ public class SongController {
     }
 
     @GetMapping("/{songID}")
-    public Song getSongById(@PathVariable("songID") UUID songId) {
+    public Song getSongById(@PathVariable UUID songId) {
         return service.getById(songId).orElseThrow();
     }
 
@@ -41,7 +45,7 @@ public class SongController {
     public List<UUID> deleteSongs(@RequestBody List<UUID> songIds) {
         var deletedIds = new ArrayList<UUID>();
 
-        for(UUID id : songIds) {
+        for (UUID id : songIds) {
             if (service.deleteById(id)) {
                 deletedIds.add(id);
             }
