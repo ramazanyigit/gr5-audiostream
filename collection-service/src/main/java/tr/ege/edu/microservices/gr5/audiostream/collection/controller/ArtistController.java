@@ -1,4 +1,4 @@
-package tr.ege.edu.microservices.gr5.audiostream.collection;
+package tr.ege.edu.microservices.gr5.audiostream.collection.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;

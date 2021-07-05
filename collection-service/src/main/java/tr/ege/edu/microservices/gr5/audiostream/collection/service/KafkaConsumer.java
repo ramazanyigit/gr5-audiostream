@@ -1,4 +1,4 @@
-package tr.ege.edu.microservices.gr5.audiostream.collection;
+package tr.ege.edu.microservices.gr5.audiostream.collection.service;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import lombok.extern.slf4j.Slf4j;

@@ -1,4 +1,4 @@
-package tr.ege.edu.microservices.gr5.audiostream.collection;
+package tr.ege.edu.microservices.gr5.audiostream.collection.controller;
 
 import org.springframework.web.bind.annotation.*;
 import tr.ege.edu.microservices.gr5.audiostream.collection.model.SearchQuery;

@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.OffsetDateTime;
 import java.util.UUID;
 
 @Entity
@@ -27,4 +28,12 @@ public class Song {
     @OneToOne
     @JoinColumn(name = "album_id", referencedColumnName = "id")
     private Album album;
+
+    @Column(nullable = false, updatable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
+    private OffsetDateTime creationTimestamp;
+
+    @PrePersist
+    public void prePersist() {
+        creationTimestamp = OffsetDateTime.now();
+    }
 }
