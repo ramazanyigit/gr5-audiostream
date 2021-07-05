@@ -1,13 +1,16 @@
 package tr.ege.edu.microservices.gr5.audiostream.playlist.model;
+
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.util.Set;
 import java.util.UUID;
 
-@Table(name="ps_playlist")
 @Entity
 @Data
+@NoArgsConstructor
 public class Playlist {
     @Id
     @GeneratedValue(generator = "UUID")
@@ -15,14 +18,17 @@ public class Playlist {
             name="UUID",
             strategy = "org.hibernate.id.UUIDGenerator"
     )
-    @Column(name = "id", updatable = false, nullable = false)
+    @Column(updatable = false, nullable = false)
     private UUID id;
 
-    @Column(name="name")
+    @Column(nullable = false, updatable = false)
+    private UUID userId;
+
+    @Column(nullable = false)
     private String name;
 
     @OneToMany
     @JoinColumn
-    private Set<Song> songSet;
+    private Set<Song> songs;
 
 }
