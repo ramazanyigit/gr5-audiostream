@@ -1,42 +1,30 @@
 package tr.ege.edu.microservices.gr5.audiostream.collection.model;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 @Entity
+@Data
+@NoArgsConstructor
 public class Song {
-    private String name;
     @Id
-    @GeneratedValue(strategy=GenerationType.AUTO)
+    @GeneratedValue(generator = "UUID")
+    @GenericGenerator(
+            name = "UUID",
+            strategy = "org.hibernate.id.UUIDGenerator"
+    )
+    @Column(nullable = false, updatable = false)
     private UUID id;
-    private UUID albumId;
 
-    public Song(String name, UUID album) {
-        this.name = name;
-        this.albumId = album;
-    }
+    @NotBlank
+    @Column(nullable = false)
+    private String name;
 
-    public String getName() {
-        return name;
-    }
-
-    public UUID getId() {
-        return id;
-    }
-
-    public UUID getAlbumId() {
-        return albumId;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAlbumId(UUID albumId) {
-        this.albumId = albumId;
-    }
-
-
+    @OneToOne
+    @JoinColumn(name = "album_id", referencedColumnName = "id")
+    private Album album;
 }
