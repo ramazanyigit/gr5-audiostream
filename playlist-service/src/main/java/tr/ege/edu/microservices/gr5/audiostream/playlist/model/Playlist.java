@@ -5,7 +5,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -29,6 +29,5 @@ public class Playlist {
 
     @OneToMany
     @JoinColumn
-    private Set<Song> songs;
-
+    private List<Song> songs;
 }

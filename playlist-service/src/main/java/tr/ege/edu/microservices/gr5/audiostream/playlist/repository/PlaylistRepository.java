@@ -9,8 +9,4 @@ import java.util.UUID;
 
 @Repository
 public interface PlaylistRepository extends JpaRepository<Playlist, UUID> {
-    Optional<Playlist> getByPlaylistId(UUID id);
-
-
-
 }
