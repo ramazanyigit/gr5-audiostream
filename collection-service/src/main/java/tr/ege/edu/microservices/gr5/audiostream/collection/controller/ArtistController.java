@@ -1,26 +1,50 @@
 package tr.ege.edu.microservices.gr5.audiostream.collection.controller;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import tr.ege.edu.microservices.gr5.audiostream.collection.model.SearchQuery;
+import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.*;
+import tr.ege.edu.microservices.gr5.audiostream.collection.model.Artist;
+import tr.ege.edu.microservices.gr5.audiostream.collection.service.ArtistService;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
-@Controller
+@RestController
+@RequestMapping("/artist")
+@AllArgsConstructor
 public class ArtistController {
+    private final ArtistService artistService;
 
-    @GetMapping("/artist/{artistID}")
-    private void getSongsByArtist(@PathVariable("artistID") UUID artistId) {
-        //artist idsine sahip olanlari dondur
+    @GetMapping
+    public List<Artist> getAll(@RequestParam Optional<String> name) {
+        if (name.isEmpty() || name.get().isBlank()) {
+            return artistService.getAllByName(name.get());
+        }
+
+        return artistService.getAll();
     }
 
-    @PostMapping("/artist/search")
-    private void searchArtists(@RequestBody SearchQuery query)
-    {
-        //query.getQuery();
-        //isimle arama yap
+    @GetMapping("/{artistId}")
+    public Artist getArtistById(@PathVariable UUID artistId) {
+        return artistService.getById(artistId).orElseThrow();
+    }
+
+    @PostMapping
+    public Artist save(@RequestBody Artist artist) {
+        return artistService.save(artist);
+    }
+
+    @DeleteMapping
+    public List<UUID> deleteEntities(@RequestBody List<UUID> ids) {
+        var deletedIds = new ArrayList<UUID>();
+
+        for (UUID id : ids) {
+            if (artistService.deleteById(id)) {
+                deletedIds.add(id);
+            }
+        }
+
+        return deletedIds;
     }
 }

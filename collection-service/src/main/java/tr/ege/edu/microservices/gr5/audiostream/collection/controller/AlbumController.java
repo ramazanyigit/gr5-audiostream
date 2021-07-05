@@ -19,7 +19,7 @@ public class AlbumController {
     @GetMapping
     public List<Album> getAll(@RequestParam Optional<UUID> artistId) {
         if (artistId.isPresent()) {
-            return albumService.getAllByArtistId(artistId);
+            return albumService.getAllByArtistId(artistId.get());
         }
 
         return albumService.getAll();
