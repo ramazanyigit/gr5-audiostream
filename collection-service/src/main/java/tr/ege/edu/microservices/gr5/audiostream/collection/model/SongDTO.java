@@ -22,6 +22,12 @@ public interface SongDTO {
     @Value("#{target.album?.artist?.name}")
     String getArtistName();
 
+    @Value("#{target.album?.genre}")
+    String getGenre();
+
+    @Value("#{target.album?.year}")
+    Integer getYear();
+
     OffsetDateTime getCreationTimestamp();
 
     Float getDuration();
