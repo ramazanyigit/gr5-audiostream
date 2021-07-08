@@ -3,14 +3,17 @@ package tr.ege.edu.microservices.gr5.audiostream.streaming.service;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import tr.ege.edu.microservices.gr5.audiostream.streaming.exception.StreamingException;
+import tr.ege.edu.microservices.gr5.audiostream.streaming.feign.CollectionFeignProxy;
+import tr.ege.edu.microservices.gr5.audiostream.streaming.feign.SongDetail;
 import tr.ege.edu.microservices.gr5.audiostream.streaming.model.KafkaEvent;
 import tr.ege.edu.microservices.gr5.audiostream.streaming.model.StreamLog;
-import tr.ege.edu.microservices.gr5.audiostream.streaming.exception.StreamingException;
 import tr.ege.edu.microservices.gr5.audiostream.streaming.repository.StreamLogRepository;
 import tr.ege.edu.microservices.gr5.audiostream.streaming.util.AuthenticationUtil;
 
 import javax.validation.constraints.NotNull;
 import java.time.OffsetDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -18,6 +21,7 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class StreamLogService {
+    private final CollectionFeignProxy feignProxy;
     private final StreamLogRepository repository;
     private final KafkaProducer producer;
 
@@ -27,6 +31,19 @@ public class StreamLogService {
 
     public List<StreamLog> getLogs() {
         return repository.findAll(Sort.by(Sort.Order.desc("creationTimestamp")));
+    }
+
+    public List<SongDetail> getLast5Logs(UUID userId) {
+        List<SongDetail> list = new ArrayList<>();
+        for (StreamLog log : repository.getTop5ByUserIdOrderByCreationTimestampDesc(userId)) {
+            try {
+                list.add(feignProxy.getSong(log.getSongId()));
+            } catch (Exception ignored) {
+                list.add(new SongDetail(log.getSongId(), "Unknown", null, 0.0f));
+            }
+        }
+
+        return list;
     }
 
     public StreamLog stop(@NotNull UUID id) throws StreamingException {
