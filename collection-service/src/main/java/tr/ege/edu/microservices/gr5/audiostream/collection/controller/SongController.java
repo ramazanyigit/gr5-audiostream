@@ -31,7 +31,7 @@ public class SongController {
         return service.getAllByName(name.get());
     }
 
-    @GetMapping("/{songID}")
+    @GetMapping("/{songId}")
     public Song getSongById(@PathVariable UUID songId) {
         return service.getById(songId).orElseThrow();
     }
