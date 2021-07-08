@@ -27,7 +27,7 @@ public class Playlist {
     @Column(nullable = false)
     private String name;
 
-    @OneToMany
-    @JoinColumn
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "playlist_id", referencedColumnName = "id")
     private List<Song> songs;
 }
