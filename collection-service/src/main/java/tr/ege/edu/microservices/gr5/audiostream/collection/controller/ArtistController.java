@@ -19,10 +19,10 @@ public class ArtistController {
     @GetMapping
     public List<Artist> getAll(@RequestParam Optional<String> name) {
         if (name.isEmpty() || name.get().isBlank()) {
-            return artistService.getAllByName(name.get());
+            return artistService.getAll();
         }
 
-        return artistService.getAll();
+        return artistService.getAllByName(name.get());
     }
 
     @GetMapping("/{artistId}")

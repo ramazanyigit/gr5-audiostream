@@ -4,6 +4,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import java.time.OffsetDateTime;
 import java.util.UUID;
@@ -31,6 +32,10 @@ public class Song {
 
     @Column(nullable = false, updatable = false, columnDefinition = "TIMESTAMP WITH TIME ZONE")
     private OffsetDateTime creationTimestamp;
+
+    @Column(nullable = false)
+    @Min(0)
+    private Float duration;
 
     @PrePersist
     public void prePersist() {

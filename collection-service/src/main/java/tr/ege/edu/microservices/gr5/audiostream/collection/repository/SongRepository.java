@@ -1,6 +1,7 @@
 package tr.ege.edu.microservices.gr5.audiostream.collection.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import tr.ege.edu.microservices.gr5.audiostream.collection.model.Song;
 import tr.ege.edu.microservices.gr5.audiostream.collection.model.SongDTO;
@@ -12,6 +13,7 @@ import java.util.UUID;
 public interface SongRepository extends JpaRepository<Song, UUID> {
     List<SongDTO> getAllByAlbumId(UUID albumId);
 
+    @Query("select s FROM Song s")
     List<SongDTO> getAll();
 
     List<SongDTO> getAllByNameContainsIgnoreCase(String name);
