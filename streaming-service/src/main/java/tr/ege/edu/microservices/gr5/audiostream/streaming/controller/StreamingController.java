@@ -28,7 +28,7 @@ public class StreamingController {
     }
 
     @PostMapping("/play")
-    public StreamLog play(@RequestBody StreamCreationDTO creationDTO) {
+    public StreamLog play(@RequestBody StreamCreationDTO creationDTO) throws StreamingException {
         return service.start(AuthenticationUtil.getId(), creationDTO.getSongId(),
                 creationDTO.getPlayOffset());
     }
@@ -36,5 +36,10 @@ public class StreamingController {
     @PostMapping("/stop")
     public StreamLog stop(@RequestBody StreamStopDTO stopDTO) throws StreamingException {
         return service.stop(stopDTO.getId(), stopDTO.getStopOffset());
+    }
+
+    @GetMapping("/current-playing")
+    public SongDetail currentPlaying() {
+        return service.getCurrentStreamingById(AuthenticationUtil.getId());
     }
 }
