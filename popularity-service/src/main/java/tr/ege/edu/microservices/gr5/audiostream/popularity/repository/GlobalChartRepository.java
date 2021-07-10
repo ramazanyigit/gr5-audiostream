@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 import tr.ege.edu.microservices.gr5.audiostream.popularity.model.GlobalChart;
+import tr.ege.edu.microservices.gr5.audiostream.popularity.type.Genre;
 
 import java.util.List;
 import java.util.Optional;
@@ -24,6 +25,6 @@ public interface GlobalChartRepository extends JpaRepository<GlobalChart, UUID> 
     GlobalChart findBySongId(UUID songId);
 
     @Query(value = "FROM GlobalChart G INNER JOIN Song S ON (G.song.id=S.id and S.genre=?1) " +
-            "order by G.repeatCount limit 10",nativeQuery = true)
-    List<GlobalChart> getGenreTopTen(@Param("genreId") UUID genreId);
+            "order by G.repeatCount limit 20",nativeQuery = true)
+    List<GlobalChart> getGenreTop(@Param("genre") Genre genre);
 }

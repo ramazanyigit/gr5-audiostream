@@ -25,8 +25,6 @@ public class SongDailyRecord {
 
     @Column(name="report_date")
     private Date reportDate;
-
-    @Column
     private UUID userId;
 
     @ManyToOne

@@ -2,6 +2,7 @@ package tr.ege.edu.microservices.gr5.audiostream.popularity.model;
 
 import lombok.Data;
 import org.hibernate.annotations.GenericGenerator;
+import tr.ege.edu.microservices.gr5.audiostream.popularity.type.Genre;
 
 import javax.persistence.*;
 import java.util.UUID;
@@ -13,14 +14,7 @@ public class Song {
     @Id
     private UUID id;
 
-    @Column(name="artist")
-    private UUID artistId;
-
-    @Column(name="album")
-    private UUID albumId;
 
     @Column(name="genre")
-    private UUID genre;
-
-
+    private Genre genre;
 }

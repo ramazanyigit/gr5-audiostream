@@ -44,13 +44,13 @@ spring:
           jwk-set-uri: ${KEYCLOAK_URI:http://localhost:8763}/auth/realms/audiostream/protocol/openid-connect/certs
 
 server:
-  port: 0
+  port: 8888
 
 eureka:
   instance:
     hostname: ${spring.application.name}
     instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
-#    prefer-ip-address: true
+    #    prefer-ip-address: true
     leaseRenewalIntervalInSeconds: 10
     leaseExpirationDurationInSeconds: 30
     metadata-map:

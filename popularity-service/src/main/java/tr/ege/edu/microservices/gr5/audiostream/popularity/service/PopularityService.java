@@ -1,35 +1,36 @@
 package tr.ege.edu.microservices.gr5.audiostream.popularity.service;
 
 
+import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Service;
+import tr.ege.edu.microservices.gr5.audiostream.popularity.common.CollectionFeignProxy;
 import tr.ege.edu.microservices.gr5.audiostream.popularity.dto.GlobalChartDTO;
+import tr.ege.edu.microservices.gr5.audiostream.popularity.dto.SongDetail;
 import tr.ege.edu.microservices.gr5.audiostream.popularity.model.*;
 import tr.ege.edu.microservices.gr5.audiostream.popularity.repository.*;
+import tr.ege.edu.microservices.gr5.audiostream.popularity.type.Genre;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 @Service
+@AllArgsConstructor
 public class PopularityService {
     private final SongDailyRecordRepository songDailyRecordRepository;
-    private final SongRepository songRepository;
     private final GlobalChartRepository globalChartRepository;
+    private final CollectionFeignProxy collectionFeignProxy;
 
 
-
-
-    @Autowired
+   /* @Autowired
     public PopularityService(SongDailyRecordRepository songDailyRecordRepository, SongRepository songRepository,
-                             GlobalChartRepository globalChartRepository){
+                             GlobalChartRepository globalChartRepository, CollectionFeignProxy collectionFeignProxy){
         this.songDailyRecordRepository = songDailyRecordRepository;
         this.songRepository = songRepository;
         this.globalChartRepository=globalChartRepository;
-
-
-    }
+        this.collectionFeignProxy=collectionFeignProxy;
+    }*/
 
     public void fillGlobalChart() throws ParseException {
         List<SongDailyRecord> songDailyRecords=
@@ -50,33 +51,46 @@ public class PopularityService {
     }
 
 
-    public List<GlobalChartDTO> getGlobalTopTenList(){
+    public GlobalChartDTO getGlobalTopTenList(){
         List<GlobalChart> globalChart=globalChartRepository.getGlobalTopTen();
-        //Collection-service, get SongName
-        return null;
+        GlobalChartDTO chart=new GlobalChartDTO();
+        chart.listName="Top 10";
+        List<SongDetail> topSongs=new ArrayList<>();
+        for (GlobalChart topSong:
+                globalChart ) {
+            SongDetail song=collectionFeignProxy.getSong(topSong.getSong().getId());
+            topSongs.add(song);
+        }
+        chart.songs=topSongs;
+        return chart;
     }
 
-    public List<GlobalChartDTO> getGlobalTopHundredList(){
+    public GlobalChartDTO getGlobalTopHundredList(){
         List<GlobalChart> globalChart=globalChartRepository.getGlobalTopHundred();
-        //Collection-service, get SongName
-        return null;
+        GlobalChartDTO chart=new GlobalChartDTO();
+        chart.listName="Top 100";
+        List<SongDetail> topSongs=new ArrayList<>();
+        for (GlobalChart topSong:
+                globalChart ) {
+            SongDetail song=collectionFeignProxy.getSong(topSong.getSong().getId());
+            topSongs.add(song);
+        }
+        chart.songs=topSongs;
+        return chart;
     }
 
-    public List<Song> getGenreTopTen(UUID genreId){
-        List<GlobalChart> globalChartByGenre=globalChartRepository.getGenreTopTen(genreId);
-        List<Song> genreTopSongs=new ArrayList<>();
+    public GlobalChartDTO getGenreTop(Genre genre){
+        List<GlobalChart> globalChartByGenre=globalChartRepository.getGenreTop(genre);
+        GlobalChartDTO chart=new GlobalChartDTO();
+        chart.listName="Best " + genre.toString() + "Songs";
+        List<SongDetail> genreTopSongs=new ArrayList<>();
         for (GlobalChart topSong:
              globalChartByGenre ) {
-            genreTopSongs.add(topSong.getSong());
+            SongDetail song=collectionFeignProxy.getSong(topSong.getSong().getId());
+            genreTopSongs.add(song);
         }
-        return genreTopSongs;
+        chart.songs=genreTopSongs;
+        return chart;
     }
-
-
-
-
-
-
-
 
 }
