@@ -7,6 +7,8 @@ import PlaylistAPI from "../api/PlaylistAPI";
 import StreamingAPI from "../api/StreamingAPI";
 import { HoverableRowContainer } from "./BaseComponents";
 import { Playlist } from "../util/types";
+import streamingStore from "../store/streamingStore";
+import { view } from "@risingstack/react-easy-state";
 
 const Swal = withReactContent(OrgSwal);
 
@@ -26,9 +28,10 @@ interface Song {
   };
 }
 
-export default function LastPlayed() {
+function LastPlayed() {
   const [songs, setSongs] = useState(undefined as Song[] | undefined);
   const [message, setMessage] = useState(undefined as undefined | string);
+  const { currentPlaying } = streamingStore;
 
   useEffect(() => {
     StreamingAPI.getLastPlayed()
@@ -41,7 +44,7 @@ export default function LastPlayed() {
           "Cannot fetch last played songs from service. Please try again later."
         );
       });
-  }, []);
+  }, [currentPlaying]);
 
   return (
     <>
@@ -109,3 +112,5 @@ export default function LastPlayed() {
     </>
   );
 }
+
+export default view(LastPlayed);

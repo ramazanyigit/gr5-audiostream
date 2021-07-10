@@ -19,6 +19,9 @@ export default function TopMenu() {
               <Nav.Link to="/search" as={Link} active={pathname === "/search"}>
                 Search
               </Nav.Link>
+              <Nav.Link to="/top-100" as={Link} active={pathname === "/top-100"}>
+                Top 100 Songs
+              </Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>

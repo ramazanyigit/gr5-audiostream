@@ -1,4 +1,4 @@
-package tr.ege.edu.microservices.gr5.audiostream.recommendation;
+package tr.ege.edu.microservices.gr5.audiostream.recommendation.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.GetMapping;

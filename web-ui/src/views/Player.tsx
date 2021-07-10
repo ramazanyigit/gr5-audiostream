@@ -22,16 +22,21 @@ function Player() {
     }
 
     timeoutRef.current = window.setInterval(() => {
-      setPlayingOffset(
-        (currentPlaying?.playOffset ?? 0) +
+      const newPlayingOffset = (currentPlaying?.playOffset ?? 0) +
         moment().diff(
           moment(currentPlaying?.creationTimestamp),
           "seconds",
           true
-        )
+        );
+      setPlayingOffset(
+        newPlayingOffset
       );
+
+      if (newPlayingOffset >= currentPlaying?.song.duration) {
+        update();
+      }
     }, 1000);
-  }, [currentPlaying]);
+  }, [currentPlaying, update]);
   return (
     <div className="bg-light px-3 py-2 border-bottom">
       <Row>

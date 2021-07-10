@@ -13,7 +13,6 @@ import tr.ege.edu.microservices.gr5.audiostream.popularity.type.Genre;
 
 @RestController
 @AllArgsConstructor
-@PreAuthorize("isAuthenticated()")
 public class PopularityContoller {
     private final PopularityService popularityService;
 

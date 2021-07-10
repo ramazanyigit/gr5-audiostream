@@ -18,7 +18,7 @@ export default function PlaylistDetail() {
       })
       .catch(() => {
         setMessage(
-          "Cannot fetch last played songs from service. Please try again later."
+          "Cannot fetch playlist songs from service. Please try again later."
         );
       });
   }, [id]);
@@ -49,7 +49,7 @@ export default function PlaylistDetail() {
                         })
                         .catch(() => {
                           setMessage(
-                            "Cannot fetch last played songs from service. Please try again later."
+                            "Cannot fetch playlist from service. Please try again later."
                           );
                         })
                     );

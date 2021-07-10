@@ -1,14 +1,14 @@
 package tr.ege.edu.microservices.gr5.audiostream.recommendation.controller;
 
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 import tr.ege.edu.microservices.gr5.audiostream.recommendation.model.SongDetail;
-import tr.ege.edu.microservices.gr5.audiostream.recommendation.service.RecommendationService;
+import tr.ege.edu.microservices.gr5.audiostream.recommendation.service.RecommendService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,19 +16,15 @@ import java.util.UUID;
 @AllArgsConstructor
 @PreAuthorize("isAuthenticated()")
 public class RecommendationController {
-    public final RecommendationService recommendationService;
+    private final RecommendService service;
 
-
-    @GetMapping("/recommend/list/{songID}")
-    private List<SongDetail> getRecommendationListBySongId(@PathVariable("songID") UUID songId) {
-        return recommendationService.getRecommendationListById(songId);
+    @GetMapping("/list/{songID}")
+    public List<SongDetail> getListById(@PathVariable("songID") UUID songId) {
+        return service.getRecommendationListById(songId);
     }
 
-    @GetMapping("/recommend/song/{songID}")
-    private SongDetail getRecommendationSongBySongId(@PathVariable("songID") UUID songId) {
-        return recommendationService.getRecommendationSongById(songId);
+    @GetMapping("/song/{songID}")
+    public SongDetail getSongById(@PathVariable("songID") UUID songId) {
+        return service.getRecommendationSongById(songId);
     }
-
-
-
 }

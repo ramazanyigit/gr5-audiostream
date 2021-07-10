@@ -2,28 +2,8 @@ spring:
   application:
     name: recommendation-engine
 
-  data:
-    mongodb:
-      user: ${DB_USER:root}
-      password: ${DB_PASSWORD:example}
-      uri: ${DB_ADDR:mongodb://localhost:27017/db}
-
   main:
     banner-mode: off
-
-  kafka:
-    consumer:
-      bootstrap-servers: ${KAFKA_URI:localhost:9092}
-      group-id: recommendation-group
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring.json.trusted.packages: "*"
-    producer:
-      bootstrap-servers: ${KAFKA_URI:localhost:9092}
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
   security:
     oauth2:
@@ -39,7 +19,6 @@ eureka:
   instance:
     hostname: ${spring.application.name}
     instanceId: ${spring.application.name}:${vcap.application.instance_id:${spring.application.instance_id:${random.value}}}
-#    prefer-ip-address: true
     leaseRenewalIntervalInSeconds: 10
     leaseExpirationDurationInSeconds: 30
     metadata-map:

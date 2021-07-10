@@ -25,3 +25,8 @@ export interface Playlist {
     detail: Song;
   }[];
 }
+
+export interface Chart {
+  name: string;
+  songs: Song[];
+}

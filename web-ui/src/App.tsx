@@ -14,6 +14,8 @@ import "./App.css";
 import Player from "./views/Player";
 import SearchSong from "./views/SearchSong";
 import PlaylistDetail from "./views/PlaylistDetail";
+import SongRecommendation from "./views/SongRecommendation";
+import Top100Chart from "./views/Top100Chart";
 
 function App() {
   return (
@@ -39,7 +41,13 @@ function App() {
             >
               <Player />
             </div>
+            <div>
+              <SongRecommendation />
+            </div>
             <Switch>
+              <Route path="/top-100">
+                <Top100Chart />
+              </Route>
               <Route path="/playlist/:id">
                 <PlaylistDetail />
               </Route>
