@@ -1,4 +1,4 @@
-package tr.ege.edu.microservices.gr5.audiostream.popularity.dto;
+package tr.ege.edu.microservices.gr5.audiostream.popularity.model;
 
 import java.util.UUID;
 
