@@ -10,6 +10,7 @@ import tr.ege.edu.microservices.gr5.audiostream.streaming.exception.StreamingExc
 import tr.ege.edu.microservices.gr5.audiostream.streaming.feign.SongDetail;
 import tr.ege.edu.microservices.gr5.audiostream.streaming.model.StreamCreationDTO;
 import tr.ege.edu.microservices.gr5.audiostream.streaming.model.StreamLog;
+import tr.ege.edu.microservices.gr5.audiostream.streaming.model.StreamLogDTO;
 import tr.ege.edu.microservices.gr5.audiostream.streaming.model.StreamStopDTO;
 import tr.ege.edu.microservices.gr5.audiostream.streaming.service.StreamLogService;
 import tr.ege.edu.microservices.gr5.audiostream.streaming.util.AuthenticationUtil;
@@ -33,13 +34,18 @@ public class StreamingController {
                 creationDTO.getPlayOffset());
     }
 
+    @PostMapping("/stop-current")
+    public StreamLog stop() throws StreamingException {
+        return service.stopByUserId(AuthenticationUtil.getId());
+    }
+
     @PostMapping("/stop")
     public StreamLog stop(@RequestBody StreamStopDTO stopDTO) throws StreamingException {
         return service.stop(stopDTO.getId(), stopDTO.getStopOffset());
     }
 
     @GetMapping("/current-playing")
-    public SongDetail currentPlaying() {
+    public StreamLogDTO currentPlaying() {
         return service.getCurrentStreamingById(AuthenticationUtil.getId());
     }
 }

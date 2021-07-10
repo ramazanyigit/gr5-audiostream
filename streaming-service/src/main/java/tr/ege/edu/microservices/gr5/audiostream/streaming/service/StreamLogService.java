@@ -3,13 +3,13 @@ package tr.ege.edu.microservices.gr5.audiostream.streaming.service;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 import tr.ege.edu.microservices.gr5.audiostream.streaming.exception.StreamingException;
 import tr.ege.edu.microservices.gr5.audiostream.streaming.feign.CollectionFeignProxy;
 import tr.ege.edu.microservices.gr5.audiostream.streaming.feign.SongDetail;
 import tr.ege.edu.microservices.gr5.audiostream.streaming.model.KafkaEvent;
 import tr.ege.edu.microservices.gr5.audiostream.streaming.model.StreamLog;
+import tr.ege.edu.microservices.gr5.audiostream.streaming.model.StreamLogDTO;
 import tr.ege.edu.microservices.gr5.audiostream.streaming.repository.StreamLogRepository;
 import tr.ege.edu.microservices.gr5.audiostream.streaming.util.AuthenticationUtil;
 
@@ -53,6 +53,16 @@ public class StreamLogService {
         return stop(id, null);
     }
 
+    public StreamLog stopByUserId(@NotNull UUID userId) throws StreamingException {
+        var redis = jedisPool.getResource();
+
+        if (!redis.exists(userId.toString())) {
+            return null;
+        }
+
+        return stop(UUID.fromString(redis.get(userId.toString())), null);
+    }
+
     public StreamLog stop(@NotNull UUID id, Float stopOffset) throws StreamingException {
         Optional<StreamLog> entityOptional = repository.findById(id);
 
@@ -90,13 +100,25 @@ public class StreamLogService {
         entity.setPlayOffset(playOffset);
 
         final var result = repository.save(entity);
+
+        var songDetail = getSongDetailById(entity.getSongId());
+        var duration = (long) Math.floor(songDetail.duration() > 0 ? songDetail.duration() : 60.0f);
         redis.set(entity.getUserId().toString(), entity.getId().toString());
+        redis.expire(entity.getUserId().toString(), duration);
         kafkaProducer.send(KafkaEvent.of("START", result));
 
         return result;
     }
 
-    public SongDetail getCurrentStreamingById(UUID userId) {
+    public SongDetail getSongDetailById(UUID songId) {
+        try {
+            return feignProxy.getSong(songId);
+        } catch (Exception ignored) {
+            return new SongDetail(songId, "Unknown", null, 0.0f);
+        }
+    }
+
+    public StreamLogDTO getCurrentStreamingById(UUID userId) {
         var redis = jedisPool.getResource();
 
         String userIdString = userId.toString();
@@ -111,10 +133,10 @@ public class StreamLogService {
         }
 
         var log = logOptional.get();
-        try {
-            return feignProxy.getSong(log.getSongId());
-        } catch (Exception ignored) {
-            return new SongDetail(log.getSongId(), "Unknown", null, 0.0f);
-        }
+
+        var songDetail = getSongDetailById(log.getSongId());
+
+        return new StreamLogDTO(log.getId(), log.getSongId(), log.getCreationTimestamp(), log.getEndTimestamp(),
+                log.getPlayOffset(), log.getStopOffset(), songDetail);
     }
 }
