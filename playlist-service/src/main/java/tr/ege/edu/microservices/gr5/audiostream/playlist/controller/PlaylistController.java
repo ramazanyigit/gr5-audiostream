@@ -56,4 +56,9 @@ public class PlaylistController {
         service.addSong(requestEntity.playlistId(), requestEntity.songId());
         return ResponseEntity.ok("");
     }
+
+    @DeleteMapping("/song")
+    public UUID deleteSongFromPlaylist(@RequestBody UUID id) {
+        return service.deleteSong(id);
+    }
  }
