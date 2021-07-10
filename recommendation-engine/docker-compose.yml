@@ -20,6 +20,8 @@ services:
     networks:
       - audiostream
       - audiostream-recommendation-engine
+    ports:
+      - 8888:8888
     environment:
       DB_ADDR: mongodb://audiostream-recommendation-db:27017/audiostream
       DB_USER: root
@@ -34,6 +36,8 @@ networks:
   audiostream:
     external: true
 
+
   audiostream-recommendation-engine:
     name: audiostream-recommendation-engine
+
     driver: bridge

@@ -11,19 +11,19 @@ spring:
   main:
     banner-mode: off
 
-  kafka:
-    consumer:
-      bootstrap-servers: ${KAFKA_URI:localhost:9092}
-      group-id: recommendation-group
-      auto-offset-reset: earliest
-      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
-      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
-      properties:
-        spring.json.trusted.packages: "*"
-    producer:
-      bootstrap-servers: ${KAFKA_URI:localhost:9092}
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+#  kafka:
+#    consumer:
+#      bootstrap-servers: ${KAFKA_URI:localhost:9092}
+#      group-id: recommendation-group
+#      auto-offset-reset: earliest
+#      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+#      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+#      properties:
+#        spring.json.trusted.packages: "*"
+#    producer:
+#      bootstrap-servers: ${KAFKA_URI:localhost:9092}
+#      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+#      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
 
   security:
     oauth2:
@@ -33,7 +33,7 @@ spring:
           jwk-set-uri: ${KEYCLOAK_URI:http://localhost:8763}/auth/realms/audiostream/protocol/openid-connect/certs
 
 server:
-  port: 0
+  port: 8888
 
 eureka:
   instance:

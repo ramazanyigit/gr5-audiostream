@@ -21,19 +21,12 @@ public class RecommendationController {
 
     @GetMapping("/recommend/list/{songID}")
     private List<SongDetail> getRecommendationListBySongId(@PathVariable("songID") UUID songId) {
-
-        recommendationService.getRecommendationListById(songId);
-
-        return new ArrayList<SongDetail>();
+        return recommendationService.getRecommendationListById(songId);
     }
 
     @GetMapping("/recommend/song/{songID}")
-    private UUID getRecommendationSongBySongId(@PathVariable("songID") UUID songId) {
-
-
-        recommendationService.getRecommendationSongById(songId);
-
-        return new UUID(0, 0);
+    private SongDetail getRecommendationSongBySongId(@PathVariable("songID") UUID songId) {
+        return recommendationService.getRecommendationSongById(songId);
     }
 
 
