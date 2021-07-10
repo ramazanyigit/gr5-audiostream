@@ -1,5 +1,8 @@
 import { useEffect, useState } from "react";
-import { Col, Row, Button, Table } from "react-bootstrap";
+import { Col, Row, Button } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
+
+import { HoverableIcon, HoverableRowContainer } from "./BaseComponents";
 import PlaylistAPI from "../api/PlaylistAPI";
 import PlaylistAddModal from "./PlaylistAddModal";
 
@@ -11,6 +14,7 @@ interface Playlist {
 }
 
 export default function Playlists() {
+  const { push } = useHistory();
   const [playlists, setPlaylists] = useState([] as Playlist[]);
   const [message, setMessage] = useState(undefined as undefined | string);
   const [showModal, setShowModal] = useState(false);
@@ -58,34 +62,38 @@ export default function Playlists() {
       </Row>
       {message && <div className="py-2">{message}</div>}
       {playlists?.length <= 0 && !message && <>{"There is no playlist!"}</>}
-      {playlists?.length > 0 && (
-        <Table striped hover size="sm">
-          <thead>
-            <tr className="border-none">
-              <th>Name</th>
-              <th>Song Count</th>
-              <th></th>
-            </tr>
-          </thead>
-          {playlists?.map((playlist) => (
-            <tr>
-              <td>{playlist.name}</td>
-              <td>{playlist.songs?.length}</td>
-              <td className="text-right">
-                <i className="btn btn-sm btn-dark btn-circle fas fa-play mr-2"></i>
-                <i
-                  className="btn btn-sm btn-danger btn-circle fas fa-times"
+      {playlists?.length > 0 &&
+        playlists?.map((playlist) => (
+          <HoverableRowContainer
+            onClick={() => push(`/playlist/${playlist.id}`)}
+          >
+            <Row>
+              <Col xs="auto">
+                <HoverableIcon
+                  className="text-dark fas fa-1x fa-play-circle"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
+                ></HoverableIcon>
+              </Col>
+              <Col>{playlist.name}</Col>
+              <Col>
+                <i className="fas fa-music mr-2"></i>
+                <span>{playlist.songs?.length ?? "0"} songs</span>
+              </Col>
+              <Col xs="auto">
+                <HoverableIcon
+                  className="fas fa-times"
                   onClick={() => {
                     PlaylistAPI.deleteByIds([playlist.id]).finally(() =>
                       reloadData()
                     );
                   }}
-                ></i>
-              </td>
-            </tr>
-          ))}
-        </Table>
-      )}
+                ></HoverableIcon>
+              </Col>
+            </Row>
+          </HoverableRowContainer>
+        ))}
     </>
   );
 }

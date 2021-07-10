@@ -5,7 +5,7 @@ const DurationUtil = {
     }
 
     const seconds = duration % 60;
-    const minutes = (duration / 60).toFixed(0);
+    const minutes = Math.floor((duration / 60));
 
     return `${minutes}:${seconds < 10 ? "0" : ""}${seconds.toFixed(0)}`;
   },

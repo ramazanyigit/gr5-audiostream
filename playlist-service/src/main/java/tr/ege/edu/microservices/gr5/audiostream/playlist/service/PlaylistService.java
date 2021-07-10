@@ -6,6 +6,7 @@ import tr.ege.edu.microservices.gr5.audiostream.playlist.CollectionFeignProxy;
 import tr.ege.edu.microservices.gr5.audiostream.playlist.exception.PlaylistException;
 import tr.ege.edu.microservices.gr5.audiostream.playlist.model.*;
 import tr.ege.edu.microservices.gr5.audiostream.playlist.repository.PlaylistRepository;
+import tr.ege.edu.microservices.gr5.audiostream.playlist.repository.SongRepository;
 import tr.ege.edu.microservices.gr5.audiostream.playlist.util.AuthenticationUtil;
 
 import javax.transaction.Transactional;
@@ -17,6 +18,7 @@ import java.util.UUID;
 @Service
 @AllArgsConstructor
 public class PlaylistService {
+    private final SongRepository songRepository;
     private final PlaylistRepository playlistRepository;
     private final CollectionFeignProxy collectionFeignProxy;
 
@@ -44,6 +46,11 @@ public class PlaylistService {
 
         playlistRepository.deleteById(id);
         return true;
+    }
+
+    public UUID deleteSong(UUID id) {
+        songRepository.deleteById(id);
+        return id;
     }
 
     public List<Playlist> getAllByUserId(UUID userId) {

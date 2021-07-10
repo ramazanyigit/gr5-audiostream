@@ -29,6 +29,20 @@ const PlaylistAPI = {
       url: "/",
       data: ids,
     }),
+  deleteSong: (id: string) =>
+    APIUtil.request({
+      method: "DELETE",
+      baseURL,
+      url: "/song",
+      data: id,
+    }),
+  addSong: (data: { playlistId: string; songId: string }) =>
+    APIUtil.request({
+      method: "POST",
+      baseURL,
+      url: "/add",
+      data,
+    }),
 };
 
 export default PlaylistAPI;
