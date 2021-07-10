@@ -29,7 +29,7 @@ function Player() {
           true
         );
       setPlayingOffset(
-        newPlayingOffset
+        newPlayingOffset > 0 ? newPlayingOffset : 0
       );
 
       if (newPlayingOffset >= currentPlaying?.song.duration) {
