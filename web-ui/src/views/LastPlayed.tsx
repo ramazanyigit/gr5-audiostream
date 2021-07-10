@@ -1,6 +1,14 @@
 import { useState, useEffect } from "react";
-import StreamingAPI from "../api/StreamingAPI";
+import { Col, Row } from "react-bootstrap";
+import OrgSwal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
 import SongRow from "./SongRow";
+import PlaylistAPI from "../api/PlaylistAPI";
+import StreamingAPI from "../api/StreamingAPI";
+import { HoverableRowContainer } from "./BaseComponents";
+import { Playlist } from "../util/types";
+
+const Swal = withReactContent(OrgSwal);
 
 interface Song {
   id: string;
@@ -39,7 +47,65 @@ export default function LastPlayed() {
     <>
       <h4 className="mb-3 font-weight-light">LAST PLAYED</h4>
       {!songs?.length && <>{message ?? "There is no songs!"}</>}
-      {songs?.length && songs?.map((song, idx) => <SongRow key={idx} data={song} />)}
+      {(songs?.length ?? 0) >= 0 && songs?.map((song, idx) => <SongRow key={idx} data={song} actions={<><i
+        className="btn btn-success btn-circle fas fa-plus"
+        onClick={() => {
+          PlaylistAPI.getPlaylists()
+            .then(({ data }) => {
+              Swal.fire({
+                title: "Choose playlist",
+                html: (
+                  <>
+                    {data?.length > 0 &&
+                      data?.map((playlist: Playlist) => (
+                        <HoverableRowContainer
+                          onClick={() => {
+                            PlaylistAPI.addSong({
+                              playlistId: playlist.id,
+                              songId: song.id,
+                            })
+                              .then(() =>
+                                Swal.fire({
+                                  title: "Success",
+                                  icon: "success",
+                                  text: "Song added successfully.",
+                                })
+                              )
+                              .catch(() =>
+                                Swal.fire({
+                                  title: "Fail",
+                                  icon: "error",
+                                  text: "Song cannot be added to playlist. Service unavailable.",
+                                })
+                              );
+                          }}
+                        >
+                          <Row>
+                            <Col>{playlist.name}</Col>
+                            <Col>
+                              <i className="fas fa-music mr-2"></i>
+                              <span>
+                                {playlist.songs?.length ?? "0"}{" "}
+                                            songs
+                                          </span>
+                            </Col>
+                          </Row>
+                        </HoverableRowContainer>
+                      ))}
+                  </>
+                ),
+                showConfirmButton: false,
+              });
+            })
+            .catch(() => {
+              Swal.fire({
+                icon: "error",
+                title: "Request failed.",
+                text: "Playlist services are unavailable right now. Please try again later.",
+              });
+            });
+        }}
+      ></i></>} />)}
     </>
   );
 }

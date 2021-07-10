@@ -30,15 +30,15 @@ export default function PlaylistDetail() {
         <span className="text-uppercase">{playlist?.name}</span>
       </h4>
       {!playlist?.songs?.length && <>{message ?? "There is no songs!"}</>}
-      {playlist?.songs?.length &&
+      {(playlist?.songs?.length ?? 0) > 0 &&
         playlist?.songs?.map((song, idx) => (
           <SongRow
             key={idx}
             data={song.detail}
-            actions={() => (
+            actions={
               <>
                 <HoverableIcon
-                  className="fa fa-times"
+                  className="fas fa-times"
                   onClick={(e) => {
                     e.stopPropagation();
                     PlaylistAPI.deleteSong(song.id).then(() =>
@@ -56,7 +56,7 @@ export default function PlaylistDetail() {
                   }}
                 />
               </>
-            )}
+            }
           />
         ))}
     </>

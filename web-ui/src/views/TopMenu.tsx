@@ -1,4 +1,4 @@
-import { Container, Navbar, Nav, NavDropdown } from "react-bootstrap";
+import { Container, Navbar, Nav } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
 
 export default function TopMenu() {
@@ -19,21 +19,6 @@ export default function TopMenu() {
               <Nav.Link to="/search" as={Link} active={pathname === "/search"}>
                 Search
               </Nav.Link>
-              <NavDropdown title="Playlists" id="basic-nav-dropdown">
-                <NavDropdown.Item href="#action/3.1">
-                  Playlist 1
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.2">
-                  Playlist 2
-                </NavDropdown.Item>
-                <NavDropdown.Item href="#action/3.3">
-                  Playlist 3
-                </NavDropdown.Item>
-                <NavDropdown.Divider />
-                <NavDropdown.Item href="#action/3.4">
-                  <i className="fa fa-plus-circle"></i> Create playlist
-                </NavDropdown.Item>
-              </NavDropdown>
             </Nav>
           </Navbar.Collapse>
         </Container>

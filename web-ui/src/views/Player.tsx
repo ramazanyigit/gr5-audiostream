@@ -1,11 +1,9 @@
+import { useState, useRef, useEffect } from "react";
 import { view } from "@risingstack/react-easy-state";
 import classNames from "classnames";
 import moment from "moment";
-import { useEffect } from "react";
-import { useRef } from "react";
-import { useCallback } from "react";
-import { useState } from "react";
 import { Col, Row } from "react-bootstrap";
+
 import StreamingAPI from "../api/StreamingAPI";
 import streamingStore from "../store/streamingStore";
 import DurationUtil from "../util/DurationUtil";
@@ -26,11 +24,11 @@ function Player() {
     timeoutRef.current = window.setInterval(() => {
       setPlayingOffset(
         (currentPlaying?.playOffset ?? 0) +
-          moment().diff(
-            moment(currentPlaying?.creationTimestamp),
-            "seconds",
-            true
-          )
+        moment().diff(
+          moment(currentPlaying?.creationTimestamp),
+          "seconds",
+          true
+        )
       );
     }, 1000);
   }, [currentPlaying]);

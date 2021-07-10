@@ -84,7 +84,8 @@ export default function Playlists() {
               <Col xs="auto">
                 <HoverableIcon
                   className="fas fa-times"
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.stopPropagation();
                     PlaylistAPI.deleteByIds([playlist.id]).finally(() =>
                       reloadData()
                     );

@@ -69,7 +69,7 @@ function SongRow({ data, actions }: SongRowProps) {
           <i className="fa fa-clock mr-2"></i>{" "}
           <span>{DurationUtil.numberToHumanReadable(data.duration)}</span>
         </Col>
-        {actions && <Col xs="auto">{actions}</Col>}
+        <Col xs="auto">{actions}</Col>
       </Row>
     </RowContainer>
   );

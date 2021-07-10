@@ -58,7 +58,7 @@ public class PlaylistController {
     }
 
     @DeleteMapping("/song")
-    public UUID deleteSongFromPlaylist(@RequestBody UUID id) {
-        return service.deleteSong(id);
+    public UUID deleteSongFromPlaylist(@RequestBody String id) {
+        return service.deleteSong(UUID.fromString(id));
     }
  }
