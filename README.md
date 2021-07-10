@@ -1,5 +1,30 @@
 # Audiostream Microservices Project
 
+## Installation
+### Requirements
+- Docker
+- Node.js >= 14.x
+- NPM
+- A modern browser
+
+### 1. Cloud Core (The audiostream's base)
+Enter the `cloud-core` directory and run the `docker compose up -d --build` command to run the Cloud Core.
+
+### 2. Collection Microservice
+Enter the `collection-microservice` directory and run the `docker compose up -d --build` command to run Collection Microservice.
+
+### 3. For other services (Playlist, Popularity, Recommendation, Streaming)
+Repeat the instruction given for Collection Microservices by changing directory name with the according microservice.
+
+### 4. Opening UI
+1. Open the terminal and enter `web-ui` directory.
+2. Run `npm install` to install dependencies.
+3. Run `npm start` to open UI.
+4. After the project has been started successfully, open http://localhost:3000 on the browser.
+
+**Note: React development server is reverse proxied to http://localhost:8080 for API access.**
+
+## General Information
 ### Service API URI's
 - collection-service: http://localhost:8080/api/collection/
 - playlist-service: http://localhost:8080/api/playlist/
