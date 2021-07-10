@@ -33,7 +33,7 @@ spring:
           jwk-set-uri: ${KEYCLOAK_URI:http://localhost:8763}/auth/realms/audiostream/protocol/openid-connect/certs
 
 server:
-  port: 8888
+  port: 0
 
 eureka:
   instance:
